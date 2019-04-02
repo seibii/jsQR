@@ -52,6 +52,7 @@ function scan(matrix: BitMatrix): QRCode | null {
       };
     }
   }
+
   return null;
 }
 
