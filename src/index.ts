@@ -1,6 +1,6 @@
 import {binarize} from "./binarizer";
 import {BitMatrix} from "./BitMatrix";
-import {Chunks} from "./decoder/decodeData";
+import {Chunks, StructuredAppendTag} from "./decoder/decodeData";
 import {decode} from "./decoder/decoder";
 import {extract} from "./extractor";
 import {locate, Point} from "./locator";
@@ -9,6 +9,7 @@ export interface QRCode {
   binaryData: number[];
   data: string;
   chunks: Chunks;
+  structuredAppend?: StructuredAppendTag;
   location: {
     topRightCorner: Point;
     topLeftCorner: Point;
@@ -37,16 +38,15 @@ function scan(matrix: BitMatrix): QRCode | null {
         binaryData: decoded.bytes,
         data: decoded.text,
         chunks: decoded.chunks,
+        structuredAppend: decoded.structuredAppend,
         location: {
           topRightCorner: extracted.mappingFunction(location.dimension, 0),
           topLeftCorner: extracted.mappingFunction(0, 0),
           bottomRightCorner: extracted.mappingFunction(location.dimension, location.dimension),
           bottomLeftCorner: extracted.mappingFunction(0, location.dimension),
-
           topRightFinderPattern: location.topRight,
           topLeftFinderPattern: location.topLeft,
           bottomLeftFinderPattern: location.bottomLeft,
-
           bottomRightAlignmentPattern: location.alignmentPattern,
         },
       };
