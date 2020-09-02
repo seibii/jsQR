@@ -10,7 +10,7 @@ module.exports = {
     library: "jsQR",
   },
   resolve: {
-    extensions: [".ts"]
+    extensions: [".js", ".ts"]
   },
   module: {
     rules: [
